@@ -21,6 +21,7 @@ public class App {
 
     public static void main(String[] args) throws Exception {
         String fileName = "";
+        FileService fs = new FileService();
 
         // Run Your Code here
         if (args.length < 1) {
@@ -28,7 +29,6 @@ public class App {
             System.exit(-1);
         } else {
             fileName = args[0];
-            FileService fs = new FileService();
             globalPokemonList = fs.ReadCSV(fileName);
         }
 
@@ -68,8 +68,9 @@ public class App {
                     break;
 
                 case "4":
-                    // TODO
-                    System.out.println("Option 4");
+                    String pokemons = cons.readLine("Create a new Pokemon stack and save to a new file >\n");
+                    String readPathFilename = cons.readLine("Enter filename to save (e.g. path/filename.csv) >\n");
+                    fs.writeAsCSV(pokemons, readPathFilename);
                     break;
 
                 default:
