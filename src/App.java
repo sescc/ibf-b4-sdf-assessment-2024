@@ -1,4 +1,5 @@
 
+import java.io.Console;
 import java.io.IOException;
 
 
@@ -7,7 +8,27 @@ public class App {
     public static void main(String[] args) throws Exception {
 
         // Run Your Code here
+        // Menu block starts
+        System.out.println("Welcome to Pokemon Gaole Legend 4 Rush 2");
+        System.out.println();
+        System.out.println("(1) View unique list of Pokemon in the selected stack");
+        System.out.println("(2) Find next 5 stars Pokemon occurrence");
+        System.out.println("(3) Create new Pokemon stack and save (append) to csv file");
+        System.out.println("(4) Print distinct Pokemon and cards count");
+        System.out.println("(q) to exit the program");
+        
+        Console cons = System.console();
+        String input = cons.readLine("Enter your selection >");
+        System.out.println();
 
+        //TODO: option block
+
+
+
+        //TODO:toremove - main options end
+        System.out.println("Thank you for using the program...");
+        System.out.println("Hope to see you soon...");
+        // Menu block ends
     }
 
     public static void clearConsole() throws IOException {
