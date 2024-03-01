@@ -1,4 +1,5 @@
 package myapp;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -9,6 +10,7 @@ import java.io.OutputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class FileService {
@@ -27,18 +29,27 @@ public class FileService {
             try (BufferedReader br = new BufferedReader(new FileReader(fullPathFilename))) {
                 
                 String line = br.readLine(); // reading 1st row
-                
+                //globalPokemonMap.put(1, line);
 
                 while (line != null) {
-                    /*TODO: put in writingCSV method
-                    String[] pokemon = line.split(",");
+                    //pokemonList.add(line);
 
-                    for (int i = 0; i < pokemon.length; i++) {
-                        pokemonList.add(pokemon[i]);
+                    //*TODO: put in writingCSV method
+                    String[] pokemon = line.split(",");
+                    pokemonList = new ArrayList<>(Arrays.asList(pokemon));
+
+                    for (String str : pokemonList) {
+                        App.globalPokemonMap.put(App.globalPokemonMap.size(), pokemonList);
                     }
-                    */
-                    pokemonList.add(line);
+
+                    // for (int i = 0; i < pokemon.length; i++) {
+                    //     pokemonList.add(pokemon[i]);
+                    // }
+                    //*/
+
                     line = br.readLine();
+                    //TODO: removetest
+                    System.out.println(pokemonList.size());
                 }
 
                 br.close();
