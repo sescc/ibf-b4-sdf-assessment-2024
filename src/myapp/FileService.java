@@ -27,7 +27,7 @@ public class FileService {
             try (BufferedReader br = new BufferedReader(new FileReader(fullPathFilename))) {
                 
                 String line = br.readLine(); // reading 1st row
-                //line = br.readLine(); // read data from first row onwards
+                
 
                 while (line != null) {
                     /*TODO: put in writingCSV method

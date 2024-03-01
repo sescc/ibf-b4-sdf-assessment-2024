@@ -1,6 +1,9 @@
 package myapp;
 
+import java.io.BufferedWriter;
 import java.io.Console;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,9 +33,24 @@ public class App {
         } else {
             fileName = args[0];
             globalPokemonList = fs.ReadCSV(fileName);                           // read into global String List array
-            globalPokemonMap.put(globalPokemonMap.size(), globalPokemonList);   // add list as a new global map value
-            //System.out.println(globalPokemonMap);
+            globalPokemonMap.put(globalPokemonMap.size(), globalPokemonList);
         }
+
+    // for (String str : globalPokemonList) {
+    //     globalPokemonMap.put(globalPokemonMap.size(), str);
+    // }
+            //globalPokemonMap.put(globalPokemonMap.size(), globalPokemonList);   // add list as a new global map value
+            //System.out.println(globalPokemonMap);
+            
+            //List<String> pokemonList = globalPokemonMap.get(stack);
+            // String[] tempArr = globalPokemonList.toArray(new String[globalPokemonList.size()]);
+            // //String[] pokemonLine = tempArr[0].split(",");
+    
+            // for (int i = 0; i < tempArr.length; i++) {
+            //     globalPokemonMap.put(i, tempArr[i]);
+            //     System.out.printf("%i ==> %s\n", i, pokemonLine[i]);
+            // }
+        //}
 
         // Start of Menu block
         printHeader();
@@ -108,6 +126,12 @@ public class App {
         System.out.println("(4) Create new Pokemon stack and save (append) to csv file");
         System.out.println("(q) to exit the program");
 
+//TODO: removetest
+// System.out.println("----------- section List -----------");
+// System.out.println(globalPokemonList.toString());
+// System.out.println("----------- section Map -----------");
+// System.out.println(globalPokemonMap.toString());
+
         Console cons = System.console();
         String input = cons.readLine("Enter your selection >");
 
@@ -125,7 +149,8 @@ public class App {
 
                 case "2":
                     // TODO
-                    System.out.println("Option 2");
+                    Integer stackNum = Integer.parseInt(cons.readLine("Display the list of unique Pokemon in stack (1 - 8) >\n"));
+                    printUniquePokemonStack(stackNum);
                     break;
 
                 case "3":
@@ -137,8 +162,7 @@ public class App {
                     String pokemons = cons.readLine("Create a new Pokemon stack and save to a new file >\n");
                     String readPathFilename = cons.readLine("Enter filename to save (e.g. path/filename.csv) >\n");
                     
-                    FileService fs = new FileService();
-                    fs.writeAsCSV(pokemons, readPathFilename);
+                    savePokemonStack(pokemons, readPathFilename);
                     break;
 
                 default:
@@ -164,16 +188,37 @@ public class App {
     public static void savePokemonStack(String pokemonStack, String filename) {
 
         // Task 1 - your code here
-    }
+        globalPokemonMap.put(globalPokemonMap.size(), globalPokemonList);
+        FileService fs = new FileService();
+        fs.writeAsCSV(pokemonStack, filename);
+        }
+    
 
     // Task 2
     public static void printUniquePokemonStack(Integer stack) {
         // Task 2 - your code here
-        if (stack < 1 || stack > 8) {
-        System.err.println("Invalid stack number. Please try again.");
-        pressAnyKeyToContinue();
-        printHeader();
+        try {
+            if (stack < 1 || stack > 8) {
+            System.err.println("Invalid stack number. Please try again.");
+            pressAnyKeyToContinue();
+            printHeader();
+            }
+
+            int actualStackIndex = stack - 1;
+
+            List<String> pokemonList = globalPokemonMap.get(actualStackIndex);
+            String[] pokemonArr = pokemonList.toArray(new String[pokemonList.size()]);
+            String[] pokemonLine = pokemonArr[0].split(",");
+
+            for (int i = 0; i < pokemonLine.length; i++) {
+            // System.out.printf("%i ==> %s\n", i, pokemonLine[i]);
+            System.out.println((i+1) + " ==> " + pokemonLine[i]);
+            }
+        } catch (NullPointerException e) {
+            System.err.println("This stack does not exist. Please try again.");
         }
+
+
     }
 
     // Task 2
