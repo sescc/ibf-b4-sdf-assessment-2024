@@ -29,18 +29,16 @@ public class FileService {
             try (BufferedReader br = new BufferedReader(new FileReader(fullPathFilename))) {
                 
                 String line = br.readLine(); // reading 1st row
-                //globalPokemonMap.put(1, line);
 
                 while (line != null) {
                     //pokemonList.add(line);
 
-                    //*TODO: put in writingCSV method
                     String[] pokemon = line.split(",");
                     pokemonList = new ArrayList<>(Arrays.asList(pokemon));
 
-                    for (String str : pokemonList) {
-                        App.globalPokemonMap.put(App.globalPokemonMap.size(), pokemonList);
-                    }
+                    //for (String str : pokemonList) {
+                    App.globalPokemonMap.put(App.globalPokemonMap.size(), pokemonList);
+                    //}
 
                     // for (int i = 0; i < pokemon.length; i++) {
                     //     pokemonList.add(pokemon[i]);
@@ -49,7 +47,7 @@ public class FileService {
 
                     line = br.readLine();
                     //TODO: removetest
-                    System.out.println(pokemonList.size());
+                    //System.out.println(pokemonList.size());
                 }
 
                 br.close();

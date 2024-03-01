@@ -127,12 +127,12 @@ public class App {
         System.out.println("(q) to exit the program");
 
 // // TODO: removetest
-// System.out.println("----------- section List -----------");
+System.out.println("----------- section List -----------");
 // System.out.println(globalPokemonList.toString());
-// System.out.println(globalPokemonList.size());
-// System.out.println("----------- section Map -----------");
-// System.out.println(globalPokemonMap.toString());
-// System.out.println(globalPokemonMap.size());
+System.out.println(globalPokemonList.size());
+System.out.println("----------- section Map -----------");
+System.out.println(globalPokemonMap.toString());
+System.out.println(globalPokemonMap.size());
 
         Console cons = System.console();
         String input = cons.readLine("Enter your selection >");
@@ -190,7 +190,7 @@ public class App {
     public static void savePokemonStack(String pokemonStack, String filename) {
 
         // Task 1 - your code here
-        globalPokemonMap.put(globalPokemonMap.size(), globalPokemonList);
+        //globalPokemonMap.put(globalPokemonMap.size(), globalPokemonList);
         FileService fs = new FileService();
         fs.writeAsCSV(pokemonStack, filename);
         }
@@ -225,12 +225,38 @@ public class App {
             System.err.println("This stack does not exist. Please try again.");
         }
 
-
     }
 
     // Task 2
     public static void printNext5StarsPokemon(String enteredPokemon) {
         // Task 2 - your code here
+        for (int i = 0; i < globalPokemonMap.size(); i++) {
+            List<String> currentStack = globalPokemonMap.get(i);
+
+            boolean pokemonNameFound = false;
+            String[] enteredPokemonArr = enteredPokemon.split(" ");
+
+            for (String pokemon : currentStack) {
+                String pokemonArr[] = pokemon.split(" ");
+                // System.out.println(pokemonArr[0]);
+                // System.out.println(pokemonArr[1]);
+                // System.out.println(enteredPokemonArr[1]);
+                // System.out.println(pokemonNameFound);
+                if (enteredPokemonArr[1].equals(pokemonArr[1])) {
+                    pokemonNameFound = true;
+                    System.out.println(enteredPokemonArr[1] + " is found in this set.");
+                }
+
+
+            }
+            if (!pokemonNameFound) {
+                System.out.println(enteredPokemonArr[1] + " not found in this set.");
+            }
+            if (pokemonNameFound) {
+                //System.out.println(enteredPokemonArr[1] + " is found in this set.");
+                //pokemonNameFound = false;
+            }
+        }
 
     }
 
