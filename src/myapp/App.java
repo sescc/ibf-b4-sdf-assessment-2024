@@ -2,6 +2,10 @@ package myapp;
 
 import java.io.Console;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class App {
     /*
@@ -12,6 +16,8 @@ public class App {
      * public static final int THREE = 3;
      * public static final int FOUR = 4;
      */
+    public static List<String> globalPokemonList = new ArrayList<>();       // global class-level String List array
+    public static Map<Integer, List<String>> globalPokemonMap = new HashMap<>();
 
     public static void main(String[] args) throws Exception {
         String fileName = "";
@@ -22,6 +28,8 @@ public class App {
             System.exit(-1);
         } else {
             fileName = args[0];
+            FileService fs = new FileService();
+            globalPokemonList = fs.ReadCSV(fileName);
         }
 
         // Start of Menu block
