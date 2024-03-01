@@ -16,7 +16,7 @@ public class App {
      * public static final int THREE = 3;
      * public static final int FOUR = 4;
      */
-    public static List<String> globalPokemonList = new ArrayList<>();       // global class-level String List array
+    public static List<String> globalPokemonList = new ArrayList<>();
     public static Map<Integer, List<String>> globalPokemonMap = new HashMap<>();
 
     public static void main(String[] args) throws Exception {
@@ -29,10 +29,76 @@ public class App {
             System.exit(-1);
         } else {
             fileName = args[0];
-            globalPokemonList = fs.ReadCSV(fileName);
+            globalPokemonList = fs.ReadCSV(fileName);                           // read into global String List array
+            globalPokemonMap.put(globalPokemonMap.size(), globalPokemonList);   // add list as a new global map value
+            //System.out.println(globalPokemonMap);
         }
 
         // Start of Menu block
+        printHeader();
+
+        // Console cons = System.console();
+        // String input = cons.readLine("Enter your selection >");
+
+        // // TODO: option block
+        // input = input.trim().toLowerCase();
+        // while (!"q".equals(input)) {
+
+        //     switch (input) {
+        //         // case "q":
+        //         // break;
+        //         case "1":
+        //             // TODO
+        //             System.out.println("Option 1");
+        //             break;
+
+        //         case "2":
+        //             // TODO
+        //             System.out.println("Option 2");
+        //             break;
+
+        //         case "3":
+        //             // TODO
+        //             System.out.println("Option 3");
+        //             break;
+
+        //         case "4":
+        //             String pokemons = cons.readLine("Create a new Pokemon stack and save to a new file >\n");
+        //             String readPathFilename = cons.readLine("Enter filename to save (e.g. path/filename.csv) >\n");
+        //             fs.writeAsCSV(pokemons, readPathFilename);
+        //             break;
+
+        //         default:
+        //             System.err.println("Invalid option. Please try again.");
+        //             break;
+
+        //     }
+        //     input = cons.readLine("Enter your selection >").trim().toLowerCase();;
+
+        // }
+        
+        printExitMessage();
+        // End of Menu block
+
+        
+    }
+
+    public static void clearConsole() throws IOException {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+    }
+
+    // Task 1
+    public static void pressAnyKeyToContinue() {
+        // your code here
+        Console cons = System.console();
+        String input = cons.readLine("Press any key to continue...");
+    }
+
+    // Task 1
+    public static void printHeader() {
+
+        // Task 1 - your code here
         System.out.println("Welcome to Pokemon Gaole Legend 4 Rush 2");
         System.out.println();
         System.out.println("(1) View the list of Pokemon in the selected stack");
@@ -70,6 +136,8 @@ public class App {
                 case "4":
                     String pokemons = cons.readLine("Create a new Pokemon stack and save to a new file >\n");
                     String readPathFilename = cons.readLine("Enter filename to save (e.g. path/filename.csv) >\n");
+                    
+                    FileService fs = new FileService();
                     fs.writeAsCSV(pokemons, readPathFilename);
                     break;
 
@@ -81,35 +149,15 @@ public class App {
             input = cons.readLine("Enter your selection >").trim().toLowerCase();;
 
         }
-
-        System.out.println();
-        System.out.println("Thank you for using the program...");
-        System.out.println("Hope to see you soon...");
-        // End of Menu block
-
-        
-    }
-
-    public static void clearConsole() throws IOException {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-    }
-
-    // Task 1
-    public static void pressAnyKeyToContinue() {
-        // your code here
-    }
-
-    // Task 1
-    public static void printHeader() {
-
-        // Task 1 - your code here
     }
 
     // Task 1
     public static void printExitMessage() {
 
         // Task 1 - your code here
+        System.out.println();
+        System.out.println("Thank you for using the program...");
+        System.out.println("Hope to see you soon...");
     }
 
     // Task 1
@@ -121,6 +169,11 @@ public class App {
     // Task 2
     public static void printUniquePokemonStack(Integer stack) {
         // Task 2 - your code here
+        if (stack < 1 || stack > 8) {
+        System.err.println("Invalid stack number. Please try again.");
+        pressAnyKeyToContinue();
+        printHeader();
+        }
     }
 
     // Task 2

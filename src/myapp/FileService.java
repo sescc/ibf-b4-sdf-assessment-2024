@@ -92,6 +92,7 @@ public class FileService {
             }
         } catch (IOException e) {
             e.printStackTrace();
+            System.err.println("Please enter a valid filename. No action taken.");
         }
     }
 }
