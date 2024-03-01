@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 public class App {
     /*
@@ -56,45 +58,6 @@ public class App {
         // Start of Menu block
         printHeader();
 
-        // Console cons = System.console();
-        // String input = cons.readLine("Enter your selection >");
-
-        // // TODO: option block
-        // input = input.trim().toLowerCase();
-        // while (!"q".equals(input)) {
-
-        //     switch (input) {
-        //         // case "q":
-        //         // break;
-        //         case "1":
-        //             // TODO
-        //             System.out.println("Option 1");
-        //             break;
-
-        //         case "2":
-        //             // TODO
-        //             System.out.println("Option 2");
-        //             break;
-
-        //         case "3":
-        //             // TODO
-        //             System.out.println("Option 3");
-        //             break;
-
-        //         case "4":
-        //             String pokemons = cons.readLine("Create a new Pokemon stack and save to a new file >\n");
-        //             String readPathFilename = cons.readLine("Enter filename to save (e.g. path/filename.csv) >\n");
-        //             fs.writeAsCSV(pokemons, readPathFilename);
-        //             break;
-
-        //         default:
-        //             System.err.println("Invalid option. Please try again.");
-        //             break;
-
-        //     }
-        //     input = cons.readLine("Enter your selection >").trim().toLowerCase();;
-
-        // }
         
         printExitMessage();
         // End of Menu block
@@ -123,7 +86,6 @@ public class App {
         System.out.println("(1) View the list of Pokemon in the selected stack");
         System.out.println("(2) View unique list of Pokemon in the selected stack");
         System.out.println("(3) Find next 5 stars Pokemon occurrence");
-        //System.out.println("(4) Print distinct Pokemon and cards count");
         System.out.println("(4) Create new Pokemon stack and save (append) to csv file");
         System.out.println("(q) to exit the program");
 
@@ -146,13 +108,12 @@ System.out.println(globalPokemonMap.size());
                 // case "q":
                 // break;
                 case "1":
-                    // TODO
-                    System.out.println("Option 1");
+                    Integer stackNum = Integer.parseInt(cons.readLine("View the list of Pokemon in the selected stack (1 - 8) >\n"));
+                    printUniquePokemonStack(stackNum);
                     break;
 
                 case "2":
-                    Integer stackNum = Integer.parseInt(cons.readLine("Display the list of unique Pokemon in stack (1 - 8) >\n"));
-                    printUniquePokemonStack(stackNum);
+                    printPokemonCardCount();
                     break;
 
                 case "3":
@@ -256,7 +217,7 @@ System.out.println(globalPokemonMap.size());
                         indexOfFiveStars = j;
                     }
                 }
-                if (enteredPokemonArr[1].equals(pokemonArr[1])) {
+                if (!enteredPokemonArr.equals(pokemonArr) && enteredPokemonArr[1].equals(pokemonArr[1])) {
                     pokemonNameFound = true;
                     indexOfFound = j;
                     System.out.println("5* " + enteredPokemonArr[1] + ">>>" + (indexOfFiveStars - indexOfFound) + " cards to go.");
@@ -285,6 +246,15 @@ System.out.println(globalPokemonMap.size());
     // Task 2
     public static void printPokemonCardCount() {
         // Task 2 - your code here
+        List<String> uniquePokemons = globalPokemonList.stream()
+                .distinct()
+                .collect(Collectors.toList());
+
+    //Map<Integer, String> totalCount = new Map<Integer,String>();
+    int totalCount = 0;
+    for (int i = 0; i < uniquePokemons.size(); i++) {
+            System.out.printf("Pokemon %i : %s, Cards Count: %i",i, uniquePokemons.get(i), totalCount);
+    }
     }
 
 }
