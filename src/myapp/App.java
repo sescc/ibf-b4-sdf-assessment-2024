@@ -14,15 +14,24 @@ public class App {
      */
 
     public static void main(String[] args) throws Exception {
+        String fileName = "";
 
         // Run Your Code here
-        // Menu block starts
+        if (args.length < 1) {
+            System.err.println("Please enter the CSV filename as an argument when launching the program.");
+            System.exit(-1);
+        } else {
+            fileName = args[0];
+        }
+
+        // Start of Menu block
         System.out.println("Welcome to Pokemon Gaole Legend 4 Rush 2");
         System.out.println();
-        System.out.println("(1) View unique list of Pokemon in the selected stack");
-        System.out.println("(2) Find next 5 stars Pokemon occurrence");
-        System.out.println("(3) Create new Pokemon stack and save (append) to csv file");
-        System.out.println("(4) Print distinct Pokemon and cards count");
+        System.out.println("(1) View the list of Pokemon in the selected stack");
+        System.out.println("(2) View unique list of Pokemon in the selected stack");
+        System.out.println("(3) Find next 5 stars Pokemon occurrence");
+        //System.out.println("(4) Print distinct Pokemon and cards count");
+        System.out.println("(4) Create new Pokemon stack and save (append) to csv file");
         System.out.println("(q) to exit the program");
 
         Console cons = System.console();
@@ -64,11 +73,12 @@ public class App {
 
         }
 
-        // TODO:toremove - main options end
         System.out.println();
         System.out.println("Thank you for using the program...");
         System.out.println("Hope to see you soon...");
-        // Menu block ends
+        // End of Menu block
+
+        
     }
 
     public static void clearConsole() throws IOException {
