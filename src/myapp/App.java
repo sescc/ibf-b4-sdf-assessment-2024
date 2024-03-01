@@ -33,7 +33,8 @@ public class App {
         } else {
             fileName = args[0];
             globalPokemonList = fs.ReadCSV(fileName);                           // read into global String List array
-            globalPokemonMap.put(globalPokemonMap.size(), globalPokemonList);
+            System.out.println("Map size debugging: " + globalPokemonMap.size());
+            //globalPokemonMap.put(globalPokemonMap.size(), globalPokemonList);
         }
 
     // for (String str : globalPokemonList) {
@@ -234,28 +235,49 @@ System.out.println(globalPokemonMap.size());
             List<String> currentStack = globalPokemonMap.get(i);
 
             boolean pokemonNameFound = false;
+            boolean pokemonFiveStarFound = false;
+            int indexOfFiveStars = 0;
+            int indexOfFound = 0;
             String[] enteredPokemonArr = enteredPokemon.split(" ");
 
-            for (String pokemon : currentStack) {
-                String pokemonArr[] = pokemon.split(" ");
-                // System.out.println(pokemonArr[0]);
-                // System.out.println(pokemonArr[1]);
-                // System.out.println(enteredPokemonArr[1]);
+            //TODO: removetest
+            //System.out.println("Stacksize: " +currentStack.size());
+            //for (String pokemon : currentStack) {
+            for (int j = 0; j < currentStack.size(); j++) {
+                String pokemonArr[] = currentStack.get(j).split(" ");
+                // System.out.println(i+" "+j +pokemonArr[0]);
+                // System.out.println(i+" "+j +pokemonArr.length);
+                // System.out.println(i+" "+j +enteredPokemonArr[1]);
                 // System.out.println(pokemonNameFound);
+                //indexOfFound = currentStack.indexOf(enteredPokemonArr[1]);
+                if (pokemonNameFound) {         // skip if entered pokemon is 5*
+                    if (enteredPokemonArr[0].equals("5*")) {
+                        pokemonFiveStarFound = true;
+                        indexOfFiveStars = j;
+                    }
+                }
                 if (enteredPokemonArr[1].equals(pokemonArr[1])) {
                     pokemonNameFound = true;
-                    System.out.println(enteredPokemonArr[1] + " is found in this set.");
+                    indexOfFound = j;
+                    System.out.println("5* " + enteredPokemonArr[1] + ">>>" + (indexOfFiveStars - indexOfFound) + " cards to go.");
+                    
                 }
 
-
             }
+            System.out.println("Set " + (i+1));
             if (!pokemonNameFound) {
-                System.out.println(enteredPokemonArr[1] + " not found in this set.");
+                System.out.println(enteredPokemonArr[1] + " not found in the set.");
             }
             if (pokemonNameFound) {
-                //System.out.println(enteredPokemonArr[1] + " is found in this set.");
-                //pokemonNameFound = false;
+                if (!pokemonFiveStarFound) {
+                    System.out.println("No 5 stars Pokemon found subsequently in the stack.");
+                }
+                if (pokemonFiveStarFound) {
+                    //System.out.println("5* " + enteredPokemonArr[1] + ">>>" + (indexOfFiveStars - indexOfFound) + " cards to go.");
+                }
+
             }
+
         }
 
     }
